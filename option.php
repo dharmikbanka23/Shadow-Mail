@@ -1,10 +1,8 @@
 <?php
-
-// If cookie with name exists, redirect to mail.php
-if (!isset($_COOKIE['name'])) {
-  header("Location: index.php");
-}
-
+  // If cookie with name exists, redirect to mail.php
+  if (!isset($_COOKIE['name'])) {
+    header("Location: index.php");
+  }
 ?>
 
 <!DOCTYPE html>
