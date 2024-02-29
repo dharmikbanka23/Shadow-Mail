@@ -11,15 +11,14 @@ session_start();
 if (!isset($_COOKIE['name'])) {
   header("Location: index.php");
   exit();
-} 
-else {
+} else {
   // Get the cookie value
   $name = $_COOKIE['name'];
-  
+
   // Load environment variables from .env file
   $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
   $dotenv->load();
-  
+
   // Get the value of the EMAIL environment variable
   $email = getenv('EMAIL');
 }
@@ -38,8 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Send the email using the MailSender class
   if (MailSender::sendEmail($receiverEmail, $subject, $emailBody)) {
     header("Location: option.php");
-  } 
-  else {
+  } else {
     echo '<script>alert("Error sending email.");</script>';
   }
 }
@@ -48,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
+
 <body>
   <!-- Mail Page -->
   <div class="container mx-auto my-auto">
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <h4 class="text-center my-auto">Shadow Mail</h4>
           </div>
           <div class="card-body">
-            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
               <div class="form-group my-2">
                 <label class="mb-2" for="name">Anonymous Name:</label>
                 <input type="text" class="form-control" name="name" id="name" value="<?php echo $name; ?>" disabled>
@@ -77,17 +77,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
               <div class="form-group my-2">
                 <label class="mb-2" for="to">To:</label>
-                <input type="text" class="form-control" name="to" id="to" placeholder="Enter receiver's email" value="<?php if (isset($_SESSION["receiver"])) echo $_SESSION["receiver"]; ?>" autocomplete="off" required>
+                <input type="text" class="form-control" name="to" id="to" placeholder="Enter receiver's email" value="<?php if (isset($_SESSION["receiver"]))
+                  echo $_SESSION["receiver"]; ?>" autocomplete="off" required>
               </div>
               <div class="form-group my-2">
                 <label class="mb-2" for="subject">Subject:</label>
-                <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter subject" autocomplete="off" required>
+                <input type="text" class="form-control" name="subject" id="subject" placeholder="Enter subject"
+                  autocomplete="off" required>
               </div>
               <div class="form-group my-2">
                 <label class="mb-2" for="body">Body:</label>
-                <textarea class="form-control" name="body" id="body" placeholder="Enter your message (max 500 characters)" rows="3" maxlength="500" style="resize: none;" required></textarea>
+                <textarea class="form-control" name="body" id="body"
+                  placeholder="Enter your message (max 500 characters)" rows="3" maxlength="500" style="resize: none;"
+                  required></textarea>
               </div>
-              <button type="submit" class="btn btn-primary btn-block mx-auto mt-3 d-block">Send Mail</button>
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-success btn-block mx-1 mt-2 d-block">Send Mail</button>
+                <button class="btn btn-primary btn-block mx-1 mt-2 d-block" onclick="startAgain()">Start Again</button>
+              </div>
             </form>
           </div>
         </div>
@@ -96,4 +103,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 </body>
+
 </html>
+
+<script>
+  function startAgain() {
+    // Redirect to logout.php
+    window.location.href = "logout.php";
+  }
+</script>

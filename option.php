@@ -30,9 +30,9 @@ if (!isset($_COOKIE['name'])) {
           </div>
           <div class="card-body">
             <h5 class="text-center">Mail Sent Successfully</h5>
-            <div class="d-flex justify-content-evenly mt-3">
-              <button class="btn btn-success" onclick="sendAnother()">Send Another</button>
-              <button class="btn btn-primary" onclick="startAgain()">Start Again</button>
+            <div class="d-flex justify-content-center mt-2">
+              <button class="btn btn-success mx-1" onclick="sendAnother()">Send Another</button>
+              <button class="btn btn-primary mx-1" onclick="startAgain()">Start Again</button>
             </div>
           </div>
         </div>
